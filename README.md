@@ -56,7 +56,7 @@ To see logs of application, write:
 $ pm2 monit
 ```
 
-### Issues 
+### Possible issues 
 
 1. Failed to run docker* commands inside pm2 running:
     - Solution: sudo chmod 722 /var/run/docker.sock
