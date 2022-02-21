@@ -1,0 +1,12 @@
+{
+    "port": 3000,
+    "secret": "secret_key",
+    "repositories": [
+        {
+            "full_name": "USER-NAME/project",
+            "path": "/home/user/project/",
+            "branch": "main",
+            "command": "sh ./start.sh"
+        }
+    ]
+}
