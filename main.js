@@ -54,23 +54,28 @@ app.post('/', async (req, res) => {
             for(const repository of repositories){
                 if(repository.branch === req.body?.ref && repository.full_name === req.body?.repository?.full_name){
                     console.log(`Found repository in config: ${repository.full_name}, for branch: ${repository.branch} - commit ${req.body.head_commit.id} (${req.body.head_commit.message}) from ${req.body.head_commit.timestamp} by ${req.body.head_commit.committer.username}.`);
-                    const command = `cd ${repository.path} && git pull && ${repository.command}`;
-                    console.log(`Starting executing command: ${command}`);
+                    let command = `cd ${repository.path} && git pull`;
+                    console.log(`Starting executing command for updating repository: ${command}`);
                     let stdout = false;
-                    let stderr = false;
                     try {
                         const execute = await exec(command);
                         stdout = execute.stdout;
-                        stderr = execute.stderr.length > 0 ?? false;
                     }catch(e){
-                        console.log(`Failed while handling event: ${e.stack}`);
-                        stderr = true;
-                    }
-                    if(stderr !== false){
-                        console.log(`Failed to handle event.`);
+                        console.log(`Failed while updating repository: ${e.stack}`);
                         return res.status(500).send(`Failed handle event.`);
                     }
-                    console.log(`Command result: ${stdout}`);
+                    console.log(`Updating repository command result: ${stdout}`);
+                    command = `cd ${repository.path} && ${repository.command}`;
+                    console.log(`Starting executing user command (from ./config.json): ${command}`);
+                    stdout = false;
+                    try {
+                        const execute = await exec(command);
+                        stdout = execute.stdout;
+                    }catch(e){
+                        console.log(`Failed while executing user command: ${e.stack}`);
+                        return res.status(500).send(`Failed handle event.`);
+                    }
+                    console.log(`User command result: ${stdout}`);
                     return res.status(200).send(`Updated ${repository.branch}, executed command: ${repository.command}`);
                 }
             }
