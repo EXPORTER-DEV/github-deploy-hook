@@ -5,7 +5,7 @@
         {
             "full_name": "USER-NAME/project",
             "path": "/home/user/project/",
-            "branch": "main",
+            "branch": "refs/heads/main",
             "command": "sh ./start.sh"
         }
     ]

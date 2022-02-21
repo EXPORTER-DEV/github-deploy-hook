@@ -16,7 +16,7 @@ For starting application, you should make ./config.json file, like ./config.exam
         {
             "full_name": "USER-NAME/project",
             "path": "/home/user/project/",
-            "branch": "main",
+            "branch": "refs/heads/main",
             "command": "sh ./start.sh"
         }
     ]
@@ -25,7 +25,7 @@ For starting application, you should make ./config.json file, like ./config.exam
 
 `port` - express web server running port (optional, if not set - 3000).
 `secret` - secret key (optional, if not set just skip authentication).
-`repositories` - array of repositories with objects as example: `{"full_name": "USER-NAME/project", "path": "/home/user/project/", "branch": "main", "command": "sh ./start.sh"}`.
+`repositories` - array of repositories with objects as example: `{"full_name": "USER-NAME/project", "path": "/home/user/project/", "branch": "refs/heads/main", "command": "sh ./start.sh"}`.
 
 All properties for `repositories` array are required (as in example - all keys should be presented).
 
