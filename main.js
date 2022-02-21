@@ -64,6 +64,7 @@ app.post('/', async (req, res) => {
                         console.log(`Failed while updating repository: ${e.stack}`);
                         return res.status(500).send(`Failed handle event.`);
                     }
+                    res.status(200).send(`Updated ${repository.branch}, executed command: ${repository.command}`);
                     console.log(`Updating repository command result: ${stdout}`);
                     command = `cd ${repository.path} && ${repository.command}`;
                     console.log(`Starting executing user command (from ./config.json): ${command}`);
@@ -76,7 +77,7 @@ app.post('/', async (req, res) => {
                         return res.status(500).send(`Failed handle event.`);
                     }
                     console.log(`User command result: ${stdout}`);
-                    return res.status(200).send(`Updated ${repository.branch}, executed command: ${repository.command}`);
+                    return;
                 }
             }
             console.log(`Doing nothing, could find target repository command in config: ${req.body?.repository.full_name}, for branch: ${req.body?.ref}.`);
